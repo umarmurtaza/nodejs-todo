@@ -20,7 +20,11 @@ function addNewEntry(id, description) {
     }
   });
 
-  entry.find(".done").click(function() { remove(entry); });
+  entry.find(".done").click(function() {
+    $.post('/todos/delete', { id: entry.attr("id") }, function() {
+      entry.fadeOut();
+    });
+  });
   entry.find(".description").attr("placeholder", "new todo");
 
   $("#todos").prepend(entry);
@@ -44,12 +48,6 @@ function flashSuccess(todo) {
   setTimeout(function() {
     todo.find(".save").html("save");
   }, 1000);
-}
-
-function remove(todo) {
-  $.post('/todos/delete', { id: todo.attr("id") }, function() {
-    todo.fadeOut();
-  });
 }
 
 function save(todo) {
