@@ -46,7 +46,10 @@ app.set('view options', { layout: false });
 app.use('/public', express.static('public'));
 
 app.use(methodOverride());
-app.use(bodyParser());
+app.use(bodyParser.urlencoded({
+  extended: true
+}));
+app.use(bodyParser.json());
 app.use(cookieParser());
 app.use(session({secret: guid()}));
 
